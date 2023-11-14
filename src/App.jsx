@@ -20,6 +20,17 @@ const App = () => {
         setSelectedFriend((curr) => (curr?.id === friend.id ? null : friend));
         setShowAddForm(false);
     };
+
+    const handleSplitBill = (value) => {
+        setFriends((friends) =>
+            friends.map((friend) =>
+                friend.id === selectedFriend.id
+                    ? { ...friend, balance: friend.balance + value }
+                    : friend
+            )
+        );
+        setSelectedFriend(null);
+    };
     return (
         <div className="app">
             <div className="sidebar">
@@ -33,7 +44,12 @@ const App = () => {
                     {showAddForm ? 'Close' : 'Add friend'}
                 </Button>
             </div>
-            {selectedFriend && <SplitForm selected={selectedFriend} />}
+            {selectedFriend && (
+                <SplitForm
+                    selected={selectedFriend}
+                    onSplitBill={handleSplitBill}
+                />
+            )}
         </div>
     );
 };

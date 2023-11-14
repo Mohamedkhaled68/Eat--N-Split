@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import Button from './Button';
 
-const SplitForm = ({ selected }) => {
+const SplitForm = ({ selected, onSplitBill }) => {
     const [bill, setBill] = useState('');
     const [userPayied, setUserPayied] = useState('');
     const [whoIsPaying, setWhoIsPaying] = useState('user');
-    const friendPayied = bill * 1 - userPayied * 1;
+    const friendPayied = bill ? bill * 1 - userPayied * 1 : '';
     const handelSubmit = (e) => {
         e.preventDefault();
+        if (!bill || !userPayied) return;
+        onSplitBill(whoIsPaying === 'user' ? friendPayied : -userPayied);
     };
+
     return (
         <>
             <form className="form-split-bill" onSubmit={handelSubmit}>
