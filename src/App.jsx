@@ -11,6 +11,7 @@ const App = () => {
     const [selectedFriend, setSelectedFriend] = useState(null);
     const handelShowForm = () => {
         setShowAddForm((prev) => !prev);
+        setSelectedFriend(null);
     };
     const addNewFriend = (friend) => {
         setFriends((friends) => [...friends, friend]);
